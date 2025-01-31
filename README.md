@@ -28,24 +28,6 @@ function App() {
 }
 ```
 
-### Custom Theming
-
-The SDK allows for custom theming, enabling you to adjust colors and fonts to match your application's design. Here's how you can apply a custom theme:
-
-```jsx
-import { EmbeddableSimulator } from "credit-score-simulator";
-
-function App() {
-  return (
-    <EmbeddableSimulator
-      onScoreChange={(score) => {
-        console.log("New score:", score);
-      }}
-    />
-  );
-}
-```
-
 ### Embedding in Iframes
 
 For non-React applications, you can embed the simulator using an iframe. This is useful if you want to integrate the simulator into a website or application that doesn't use React. Here's how you can do it:
