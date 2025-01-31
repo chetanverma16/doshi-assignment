@@ -4,8 +4,6 @@ export type {
   CreditScore,
   CreditFactors,
   ScoreRange,
-  ThemeConfig,
   SimulatorProps,
 } from "./lib/types";
-export { createTheme } from "./lib/theme";
 export { CreditSimulator } from "./lib/simulator";

@@ -32,10 +32,7 @@ export function EmbeddableSimulator({
   useEffect(() => {
     // Handle postMessage communication for iframe embedding
     const handleMessage = (event: MessageEvent) => {
-      if (event.data.type === "THEME_UPDATE") {
-        // Handle theme updates from parent window
-        // Update theme here (you might want to use a state management solution)
-      }
+      console.log("message", event);
     };
 
     window.addEventListener("message", handleMessage);

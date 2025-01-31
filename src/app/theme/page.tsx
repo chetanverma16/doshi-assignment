@@ -17,8 +17,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "sonner";
+import { ArrowLeftIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function ThemeConfigPage() {
+  const router = useRouter();
   const [theme, setTheme] = useAtom(themeAtom);
   const [localTheme, setLocalTheme] = useState<ThemeConfig>(theme);
 
@@ -54,12 +58,17 @@ export default function ThemeConfigPage() {
 
   const handleSave = () => {
     setTheme(localTheme);
+    toast.success("Theme updated successfully");
   };
 
   return (
     <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-8">Theme Configuration</h1>
-
+      <div className="flex items-center gap-x-4 mb-8">
+        <Button variant="outline" onClick={() => router.back()} size="icon">
+          <ArrowLeftIcon className="w-4 h-4" />
+        </Button>
+        <h1 className="text-2xl font-bold">Theme Configuration</h1>
+      </div>
       <div className="space-y-8">
         {/* Score Ranges Configuration */}
         <div>
