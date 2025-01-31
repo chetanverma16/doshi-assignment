@@ -72,10 +72,8 @@ export function CreditScoreSimulator({ onScoreChange }: SimulatorProps) {
   }, [score.range]);
 
   return (
-    <div className="flex flex-col gap-y-2 w-full p-4 mx-auto max-w-lg rounded-2xl shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)] border border-gray-200">
-      <div className="flex w-full items-center justify-between">
-        <h1 className="text-xl font-bold">Credit Score Simulator</h1>
-      </div>
+    <div className="flex flex-col gap-y-2 w-full p-4 mx-auto max-w-lg rounded-xl shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)] border border-gray-200">
+      <h1 className="text-xl font-bold">Credit Score Simulator</h1>
       <Separator />
       <div className="w-full flex-col gap-y-2 my-4 p-6 border border-gray-200/60 shadow-lg rounded-2xl flex items-center justify-center">
         <div className="flex flex-col items-center">
@@ -94,7 +92,8 @@ export function CreditScoreSimulator({ onScoreChange }: SimulatorProps) {
       </div>
 
       <div className="space-y-6">
-        <div className="space-y-2">
+        {/* Credit Utilization */}
+        <div className="space-y-1">
           <Label className="flex items-center gap-x-2">
             <span>Credit Utilization</span>
             <div>
@@ -108,30 +107,10 @@ export function CreditScoreSimulator({ onScoreChange }: SimulatorProps) {
             step={1}
           />
         </div>
-        <div className="flex items-center justify-between gap-x-4">
-          <div className="space-y-2">
-            <Label>Payment History</Label>
-            <Toggle
-              pressed={factors.paymentHistory}
-              onPressedChange={handlePaymentHistoryChange}
-              variant={factors.paymentHistory ? "success" : "danger"}
-            >
-              {factors.paymentHistory ? "On-time Payments" : "Missed Payments"}
-            </Toggle>
-          </div>
 
-          <div className="space-y-2 w-full">
-            <Label>New Credit Applications</Label>
-            <Input
-              type="number"
-              min={0}
-              value={factors.newCreditApplications}
-              onChange={(e) => handleNewCreditChange(e.target.value)}
-            />
-          </div>
-        </div>
+        {/* Age */}
 
-        <div className="space-y-2">
+        <div className="space-y-1">
           <Label>
             Credit Age (Years: <NumberFlow value={factors.creditAge} />)
           </Label>
@@ -143,15 +122,38 @@ export function CreditScoreSimulator({ onScoreChange }: SimulatorProps) {
           />
         </div>
 
-        <div className="space-y-2">
-          <Label>Debt-to-Income Ratio (%)</Label>
-          <Input
-            type="number"
-            min={0}
-            max={100}
-            value={factors.debtToIncomeRatio}
-            onChange={(e) => handleDebtToIncomeChange(e.target.value)}
-          />
+        {/* Payment History, New Credit Applications, Debt-to-Income Ratio */}
+        <div className="flex items-center justify-between gap-x-4">
+          <div className="space-y-1 w-full">
+            <Label>Payment History</Label>
+            <Toggle
+              pressed={factors.paymentHistory}
+              onPressedChange={handlePaymentHistoryChange}
+              variant={factors.paymentHistory ? "success" : "danger"}
+            >
+              {factors.paymentHistory ? "On-time Payments" : "Missed Payments"}
+            </Toggle>
+          </div>
+
+          <div className="space-y-1 w-full">
+            <Label>New Credit Applications</Label>
+            <Input
+              type="number"
+              min={0}
+              value={factors.newCreditApplications}
+              onChange={(e) => handleNewCreditChange(e.target.value)}
+            />
+          </div>
+          <div className="space-y-1 w-full">
+            <Label>Debt-to-Income Ratio (%)</Label>
+            <Input
+              type="number"
+              min={0}
+              max={100}
+              value={factors.debtToIncomeRatio}
+              onChange={(e) => handleDebtToIncomeChange(e.target.value)}
+            />
+          </div>
         </div>
       </div>
     </div>

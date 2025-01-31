@@ -5,13 +5,11 @@ import { CreditScore } from "@/lib/types";
 interface EmbeddableSimulatorProps {
   onScoreChange?: (score: CreditScore) => void;
   className?: string;
-  locale?: string;
 }
 
 export function EmbeddableSimulator({
   onScoreChange,
   className,
-  locale,
 }: EmbeddableSimulatorProps) {
   // Memoize the score change handler
   const handleScoreChange = useCallback(
@@ -46,7 +44,7 @@ export function EmbeddableSimulator({
 
   return (
     <div className={className}>
-      <CreditScoreSimulator onScoreChange={handleScoreChange} locale={locale} />
+      <CreditScoreSimulator onScoreChange={handleScoreChange} />
     </div>
   );
 }

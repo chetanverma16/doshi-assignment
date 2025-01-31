@@ -6,7 +6,7 @@ import { EmbeddableSimulator } from "@/components/embeddable-simulator";
 import { CreditScore } from "@/lib/types";
 
 export default function Home() {
-  const [score, setScore] = useState<CreditScore>();
+  const [, setScore] = useState<CreditScore>();
 
   return (
     <div className="min-h-screen p-8">
