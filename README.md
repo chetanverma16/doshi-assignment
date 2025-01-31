@@ -34,7 +34,7 @@ For non-React applications, you can embed the simulator using an iframe. This is
 
 ```html
 <iframe
-  src="https://your-domain.com/embed"
+  src="https://doshi-assignment.vercel.app/embed"
   width="100%"
   height="600"
   frameborder="0"
