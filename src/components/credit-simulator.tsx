@@ -5,10 +5,11 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { CreditSimulator } from "@/lib/simulator";
 import { SimulatorProps, CreditFactors, CreditScore } from "@/lib/types";
-import { cn } from "@/lib/utils";
 import NumberFlow from "@number-flow/react";
 import { Separator } from "./ui/separator";
 import RainbowSlider from "./charts/rainbow-slider";
+import { useAtom } from "jotai";
+import { themeAtom, getScoreRange } from "@/lib/atoms/theme";
 
 const simulator = new CreditSimulator();
 
@@ -25,6 +26,7 @@ export function CreditScoreSimulator({ onScoreChange }: SimulatorProps) {
   const [score, setScore] = useState<CreditScore>(() =>
     simulator.calculateScore(initialFactors)
   );
+  const [theme] = useAtom(themeAtom);
 
   useEffect(() => {
     const newScore = simulator.calculateScore(factors);
@@ -55,21 +57,11 @@ export function CreditScoreSimulator({ onScoreChange }: SimulatorProps) {
   }, []);
 
   const getScoreColor = useCallback(() => {
-    switch (score.range) {
-      case "Excellent":
-        return "text-green-600";
-      case "VeryGood":
-        return "text-emerald-500";
-      case "Good":
-        return "text-yellow-500";
-      case "Fair":
-        return "text-orange-500";
-      case "Poor":
-        return "text-red-500";
-      default:
-        return "text-gray-500";
-    }
-  }, [score.range]);
+    const range = getScoreRange(score.score, theme.scoreRanges);
+    return range
+      ? { color: range.color, label: range.label }
+      : { color: "#6B7280", label: "Unknown" };
+  }, [score.score, theme.scoreRanges]);
 
   return (
     <div className="flex flex-col gap-y-2 w-full p-4 mx-auto max-w-lg rounded-xl shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)] border border-gray-200">
@@ -78,10 +70,13 @@ export function CreditScoreSimulator({ onScoreChange }: SimulatorProps) {
       <div className="w-full flex-col gap-y-2 my-4 p-6 border border-gray-200/60 shadow-lg rounded-2xl flex items-center justify-center">
         <div className="flex flex-col items-center">
           <NumberFlow
-            className={cn("text-2xl font-bold", getScoreColor())}
+            className="text-2xl font-bold"
             value={score.score}
+            style={{ color: getScoreColor().color }}
           />
-          <h2 className="text-xs text-gray-500">{score.range} Credit Score</h2>
+          <h2 className="text-xs text-gray-500">
+            {getScoreColor().label} Credit Score
+          </h2>
         </div>
 
         <RainbowSlider
