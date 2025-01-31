@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### Project Overview
 
-## Getting Started
+The **Credit Score Simulator SDK** is an embeddable tool designed to simulate credit scores. It can be integrated into any React application, allowing users to interact with a credit score simulator directly within their app. The SDK provides flexibility in terms of theming and can also be embedded in non-React applications using an iframe.
 
-First, run the development server:
+### Installation
+
+To install the SDK, you can use npm:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install credit-score-simulator
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Basic Usage in React
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To use the simulator in a React application, you need to import the `EmbeddableSimulator` component from the SDK and include it in your component tree. Here's a basic example:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```jsx
+import { EmbeddableSimulator } from "credit-score-simulator";
 
-## Learn More
+function App() {
+  return (
+    <EmbeddableSimulator
+      onScoreChange={(score) => {
+        console.log("New score:", score);
+      }}
+    />
+  );
+}
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Custom Theming
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The SDK allows for custom theming, enabling you to adjust colors and fonts to match your application's design. Here's how you can apply a custom theme:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```jsx
+import { EmbeddableSimulator } from "credit-score-simulator";
 
-## Deploy on Vercel
+function App() {
+  return (
+    <EmbeddableSimulator
+      onScoreChange={(score) => {
+        console.log("New score:", score);
+      }}
+    />
+  );
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Embedding in Iframes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+For non-React applications, you can embed the simulator using an iframe. This is useful if you want to integrate the simulator into a website or application that doesn't use React. Here's how you can do it:
+
+```html
+<iframe
+  src="https://your-domain.com/embed"
+  width="100%"
+  height="600"
+  frameborder="0"
+  title="Credit Score Simulator"
+></iframe>
+
+<script>
+  window.addEventListener("message", (event) => {
+    if (event.data.type === "SCORE_UPDATE") {
+      console.log("New score:", event.data.score);
+    }
+  });
+</script>
+```
+
+### Props and Configuration
+
+The `EmbeddableSimulator` component accepts several props for customization:
+
+- **onScoreChange**: A callback function that is triggered whenever the score changes.
+- **className**: Additional CSS classes for styling.
+
+### Requirements
+
+- **React**: Version 18 or higher
+- **TailwindCSS**: Version 3 or higher
+
+### License
+
+The project is licensed under the MIT License.
