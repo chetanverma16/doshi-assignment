@@ -80,7 +80,7 @@ export function CreditScoreSimulator({ onScoreChange }: SimulatorProps) {
         </div>
 
         <RainbowSlider
-          colors={["#8B0000", "#DC143C", "#FF4500", "#FFD700", "#33CC33"]}
+          colors={theme.scoreRanges.map((range) => range.color)}
           range={[300, 850]}
           value={score.score}
         />
